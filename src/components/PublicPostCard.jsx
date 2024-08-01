@@ -4,8 +4,8 @@ export default function PublicPostCard({item}){
     const SERVER = "http://localhost:8000/";
 
     return (
-        <div className="text-black rounded-2xl border-2 px-5 py-2 flex h-[60vh] gap-3 shadow-xl ">
-            <div className="bg-black rounded-lg">
+        <div className="text-black rounded-2xl border-2 px-5 py-2 flex gap-3 shadow-xl ">
+            <div className="bg-black rounded-lg flex items-center">
                 <img src={`${SERVER}${item.media[0].media}`} className="w-96 rounded-lg max-h-60"/>
             </div>
             <div className="flex flex-col p-5 w-[15vw] rounded-lg justify-between">
