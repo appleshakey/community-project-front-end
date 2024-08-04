@@ -8,7 +8,7 @@ import CommunityCard from "@/components/CommunityCard";
 export default function Home(){
     //constants
     const TOKEN = useSelector(state => state["auth"]["Token"]) 
-        //|| "35af2e3d3ac0e1c6eebc083017196381459554d6";
+        || "35af2e3d3ac0e1c6eebc083017196381459554d6";
     const SERVER = "http://localhost:8000";
 
     //states
@@ -16,6 +16,7 @@ export default function Home(){
     const [isPublic, setIsPublic] = useState(true);
     const [publicPosts, setPublicPosts] = useState([]); 
     const [communities, setCommunities] = useState([]);
+    
 
     //useEffect
     useEffect(() => {
@@ -43,7 +44,6 @@ export default function Home(){
             if(rResponse.status == 200){
                 const response = await rResponse.json();
                 setCommunities(response);
-                console.log(response);
             }
         }
 

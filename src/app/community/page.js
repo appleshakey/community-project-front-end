@@ -8,7 +8,7 @@ export default function Community(){
     //constants
     const SERVER = "http://localhost:8000/";
     const TOKEN = useSelector(state => state["auth"]["Token"]) 
-    //|| "35af2e3d3ac0e1c6eebc083017196381459554d6";
+    || "35af2e3d3ac0e1c6eebc083017196381459554d6";
 
     //states
     const [isJoin, setIsJoin] = useState(false);
@@ -16,6 +16,7 @@ export default function Community(){
     const [description, setDescription] = useState("");
     const [code, setCode] = useState("");
     const [photo, setPhoto] = useState(undefined);
+    const [preview, setPreview] = useState(undefined);
     const router = useRouter(); 
 
     //functions
@@ -43,7 +44,7 @@ export default function Community(){
             });
 
             if (rResponse.status == 201){
-                console.log("community created!!!");
+                router.push("/home");
             }
         }
         else{
@@ -58,9 +59,18 @@ export default function Community(){
             });
 
             if(rResponse.status == 200){
-                console.log("joined the group!!");  
+                router.push("/home");
             }
         }
+    }
+
+    const handleChange = (e) => {
+        setPhoto(e.target.files[0]);
+        const file = new FileReader();
+        file.onload = () => {
+            setPreview(file.result);
+        }
+        file.readAsDataURL(e.target.files[0]);
     }
 
     return(
@@ -81,8 +91,13 @@ export default function Community(){
                             <textarea type="text" id="description" name="description" className="rounded-lg font-medium resize-none text-sm p-2" cols="30" rows="7" value={description} onChange={(e) => setDescription(e.target.value)} required/>
                             <label htmlFor="description">description</label>
                         </div>
+                        { preview && (
+                            <div className="rounded-full">
+                                <img src={preview} className="h-24 w-24 rounded-full"/>
+                            </div>
+                        )}
                         <div className="flex flex-col-reverse gap-1 font-bold text-xl justify-center items-center">
-                            <input type="file" accept="image/*" id="photo" name="photo" className="rounded-lg font-medium resize-none text-sm py-2"  onChange={(e) => setPhoto(e.target.files[0])} required/>
+                            <input type="file" accept="image/*" id="photo" name="photo" className="rounded-lg font-medium resize-none text-sm py-2" onChange={handleChange} placeholder="" required/>
                             <label htmlFor="photo">photo</label>
                         </div>
                         <div className="flex flex-col">
